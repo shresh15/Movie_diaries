@@ -5,6 +5,7 @@ import { Auth } from "./Components/auth";
 import { db, auth ,storage} from "./config/firebase";
 import { getDocs, collection, addDoc,deleteDoc,doc,updateDoc } from "firebase/firestore"; // in data base we have a bunch of documents
 import {ref, uploadBytes} from "firebase/storage"
+
 function App() {
   const [movieList, setMovieList] = useState([]);
   const[newMovieTitle,setNewMovieTitle]=useState("");
@@ -14,8 +15,7 @@ function App() {
 const[updatedTitle,setUpdatedTitle]=useState("");
 //file upload
 const[fileUpload,setFileUpload]= useState([])
-  
-
+ 
 //use effect-directly get rendered
   
   const movieCollectionRef = collection(db, "movies");
@@ -33,17 +33,18 @@ const[fileUpload,setFileUpload]= useState([])
     }
   };
 
-  //Delete Movie
-  const deleteMovie=async(id) =>{
-    const movieDoc=doc(db,"movies",id);
-    await deleteDoc(movieDoc);
-  };
+  
   
   // Update Movie Title
   const UpdateMovieTitle=async(id) =>{
     const movieDoc=doc(db,"movies",id);
     await updateDoc(movieDoc,{title :updatedTitle});
   };
+  //Delete Movie
+const deleteMovie=async(id) =>{
+  const movieDoc=doc(db,"movies",id);
+  await deleteDoc(movieDoc);
+};
 
   //Upload files
   const uploadFile =async() =>{
@@ -63,7 +64,8 @@ const[fileUpload,setFileUpload]= useState([])
       getMovieList();
     },[]);
 
-    const onSubmitMovie= async() =>{ 
+    const onSubmitMovie= async() =>
+    { 
       try{
         await addDoc(movieCollectionRef,
       {
@@ -76,13 +78,13 @@ const[fileUpload,setFileUpload]= useState([])
     } catch(err){
         console.error(err);
       }
-  }
+   }
 
 
   return (
     <div className="App">
       <Auth />
-      <div>
+      <div >
         <input placeholder="Movie title"
           onChange={(e) => setNewMovieTitle(e.target.value)}
         />
@@ -112,7 +114,10 @@ const[fileUpload,setFileUpload]= useState([])
         <input type="file" onChange={(e) => setFileUpload(e.target.files[0])}/>
         <button onClick={uploadFile}>Upload File</button>
       </div>
+      <deleteMovie/> 
+
     </div>
+
       
    
   ); //closing return 
