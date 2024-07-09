@@ -41,7 +41,7 @@ const[fileUpload,setFileUpload]= useState([])
     await updateDoc(movieDoc,{title :updatedTitle});
   };
   //Delete Movie
-const deleteMovie=async(id) =>{
+const DeleteMovie=async(id) =>{
   const movieDoc=doc(db,"movies",id);
   await deleteDoc(movieDoc);
 };
@@ -101,7 +101,7 @@ const deleteMovie=async(id) =>{
         <div>
           <h1 style={{color:movie.receivedAnOscar?"green":"red"}}>{movie.title}</h1>
           <p>Date : {movie.releaseDate}</p>
-          <button onClick={() => deleteMovie(movie.id)}>Delete Movie</button>
+          <button onClick={() => DeleteMovie(movie.id)}>Delete Movie</button>
 
           <input placeholder="new Title" onChange={(e) => setUpdatedTitle(e.target.value)}></input>
           <button onClick={() => UpdateMovieTitle(movie.id)}>Update title</button>
