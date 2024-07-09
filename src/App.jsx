@@ -7,6 +7,7 @@ import { getDocs, collection, addDoc,deleteDoc,doc,updateDoc } from "firebase/fi
 import {ref, uploadBytes} from "firebase/storage"
 
 function App() {
+  
   const [movieList, setMovieList] = useState([]);
   const[newMovieTitle,setNewMovieTitle]=useState("");
   const[newReleaseDate,setNewReleaseDate]=useState(0);
